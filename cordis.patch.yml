@@ -1,0 +1,31 @@
+# 精选授权：不代表端点健康、权限隔离或角色自动路由已通过。
+# 本 bundle 提供「设置 → 子代理模型选择」页面（lib/index.js + lib/client.js），
+# 并以精选白名单作为该配置项在部署层的初始值。
+- insert:
+    - id: dsh-workflow-model-routing
+      name: '@local/dsh-workflow-model-routing'
+- id: subagent-model-selection-settings
+  name: '@deepseek-ai/dsh-tool-subagent/model-selection-settings'
+  config:
+    enabled: true
+    allowedModels:
+      - provider: deepseek-account
+        model: deepseek-flash
+      - provider: deepseek-account
+        model: deepseek-v4-pro
+      - provider: openai
+        model: gpt-6.1-sol
+      - provider: openai
+        model: gpt-6-astra
+      - provider: openai
+        model: gpt-5.6-sol
+      - provider: openai
+        model: gpt-5.3-codex
+      - provider: kimi-subscription
+        model: k3
+      - provider: kimi-subscription
+        model: k3.1-pro
+      - provider: google
+        model: gemini-3.1-pro-preview
+      - provider: google
+        model: gemini-4-argon

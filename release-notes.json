@@ -1,0 +1,957 @@
+{
+  "currentVersion": "2.6.4",
+  "versions": [
+    {
+      "version": "v2.6.4",
+      "date": "2026-11-17",
+      "title": {
+        "zh": "配置入口定位与协作网络分层",
+        "en": "Configuration ownership and layered collaboration network"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "主会话与派工控制",
+            "en": "Main session and dispatch controls"
+          },
+          "items": {
+            "zh": [
+              "主会话页集中Lead默认模型、插件派工入口开关、插件并发；不再重复编辑团队身份和顾问路线。",
+              "开关与并发仅约束插件role_subagent路径，不宣称拦截所有原生子代理。"
+            ],
+            "en": [
+              "The main tab owns the Lead default, plugin dispatch entry, and plugin concurrency, without duplicated team/advisor route editors.",
+              "The switch and concurrency apply to the plugin role_subagent path, not every native subagent."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "模型与角色中心",
+            "en": "Model and role center"
+          },
+          "items": {
+            "zh": [
+              "专业角色保持集中管理；高级协作身份覆盖仅显式teamRole时生效，优先专业角色路线，显式override优先级更高。",
+              "升级顾问移至协作建议高级区：条件不触发后台自动调度，需主模型显式决定。",
+              "只移动编辑入口，不迁移或重写用户保存的模型、推理、模式和授权。"
+            ],
+            "en": [
+              "Advanced collaboration identity overrides apply only when teamRole is explicitly supplied: override > teamRole > role tier.",
+              "Escalation advisor controls are collaboration guidance, not an automatic scheduler.",
+              "Presentation-only relocation preserves saved routes, reasoning, modes, and authorization."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "协作网络区域标记",
+            "en": "Collaboration network region markers"
+          },
+          "items": {
+            "zh": [
+              "新增阶段区域、职责层级、任务层级三种视图；节点保留输入输出和上下游追踪。",
+              "任务层级区分SSS、A/B/C、A1等、按需再拆分A3v与公共支撑；同区不表示同Agent或同时执行。"
+            ],
+            "en": [
+              "Three views distinguish process phases, responsibility levels, and task depth while preserving node contracts and lineage.",
+              "Task levels distinguish SSS, work packages, subtasks, optional deeper decomposition, and shared infrastructure."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "验证状态",
+            "en": "Verification status"
+          },
+          "items": {
+            "zh": [
+              "独立回归通过：客户端63、route-policy10、AI38、jobs11、execution14、smoke103，另加CLI专项；分层网络420次节点交互通过。",
+              "完整重启后Host 63575的/modes已加载2.6.4；当前窗口确认三模块、主控Lead路线及角色中心，设置Slot为active。模式/路线/授权/活动快照深比较保持不变。",
+              "角色高级区四身份编辑器、一个顾问编辑器及优先级由真实保存数据DOM逐项验证；因前台反复切换未另取高级区展开截图，未把该限制冒充窗口证据。未保存配置或调用模型。"
+            ],
+            "en": [
+              "Independent client63/policy10/AI38/jobs11/execution14/smoke103 plus CLI regressions pass; the layered network passes 420 node interactions.",
+              "After a full restart, Host63575 /modes runs2.6.4. The current window confirms the three modules, main Lead route and role center, with an active settings Slot; saved modes/routes/authorization/active snapshot remain identical.",
+              "Real-data DOM checks verify four team editors, one advisor editor and precedence in the advanced role sections. Focus changes prevented an additional expanded-section screenshot; this limitation is not presented as visual proof. No configuration save or model call."
+            ]
+          }
+        }
+      ],
+      "links": [
+        "docs/v2.6.4-ui-positioning.md"
+      ]
+    },
+    {
+      "version": "v2.6.3",
+      "date": "2026-11-17",
+      "title": {
+        "zh": "四模式非 vision 部署与同名优先分组",
+        "en": "Non-vision deployment and preferred providers across four modes"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "非 vision 部署目录",
+            "en": "Non-vision deployment catalog"
+          },
+          "items": {
+            "zh": [
+              "四个运行模式的部署中心不展示 vision 派生分组，且不将它们用作一键配置、推荐的执行器或候选；旧授权和草稿兜底也不能重新展示 vision 项。",
+              "区分 vision provider 派生版本与原生多模态能力：普通 provider 的图片输入能力保留。本次不卸载识图插件，不修改 Host 全局聊天模型目录。"
+            ],
+            "en": [
+              "Vision-derived providers are excluded from four-mode deployment displays and from one-click executors and candidates, including legacy authorization and draft fallbacks.",
+              "Native image-input capabilities remain available on ordinary providers. This change does not uninstall vision plugins or modify the Host global chat model picker."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "同名模型优先分组",
+            "en": "Preferred providers for matching models"
+          },
+          "items": {
+            "zh": [
+              "自动配置与已部署路由迁移优先选择 kimi-subscription、antigravity 中对应模型；优先分组没有对应模型时才使用其他非 vision 分组。",
+              "精确模型 ID 优先，仅在规范显示名唯一且版本、上下文、highspeed 等语义一致时允许跨 ID 匹配。用户仍可手动选择其他已授权的非 vision 分组。"
+            ],
+            "en": [
+              "Automatic configuration and deployment migration prefer corresponding models from kimi-subscription and antigravity, falling back to other non-vision providers only when no matching model exists there.",
+              "Exact model IDs take precedence. Cross-ID matching requires a unique normalized display name without dropping version, context or highspeed distinctions. Other authorized non-vision providers remain manually selectable."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "已配置路由安全迁移",
+            "en": "Safe migration of configured routes"
+          },
+          "items": {
+            "zh": [
+              "先备份并 dry-run，迁移目标必须由当前目录证实存在；覆盖四模式、全局角色/授权、团队与审查员路由及活动部署快照，不强制切换现有对话的冻结快照。",
+              "保留自定义非路由字段与当前模式；目标推理能力不支持原 fixed/smart 时降为 default 并记录警告。无对应模型不得盲删、猜测或悄悄选另一版本。"
+            ],
+            "en": [
+              "Backup and dry-run precede changes. Targets must exist in the current catalog; migration covers four modes, global roles and authorization, team/reviewer routes and the active deployment snapshot, without forcing changes to frozen conversation snapshots.",
+              "Custom non-route fields and the current mode are retained. Unsupported reasoning policies fall back to default with warnings. Missing counterparts must be reported rather than deleted or guessed."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "授权、生成与验证边界",
+            "en": "Authorization, generation and verification boundaries"
+          },
+          "items": {
+            "zh": [
+              "本次目录检查与配置迁移不调用真实模型、不消耗连接探测或一键生成额度。目录存在不等于订阅权益、额度或生成质量已验证。",
+              "先前一键错误仍需真实错误原文与任务信息定位，本版本不把路由政策更新当作所有一键错误均已解决的证据。"
+            ],
+            "en": [
+              "Catalog checks and configuration migration make no real model or connection-probe calls. Catalog presence is not evidence of subscription entitlement, quota or generation quality.",
+              "The earlier one-click failure still needs its exact error and job details; this route-policy change is not evidence that every one-click failure is resolved."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "实施验证记录",
+            "en": "Implementation verification record"
+          },
+          "items": {
+            "zh": [
+              "完整重启后 Host 51289 已加载 2.6.3 安全迁移接口，备份及完整 hash CAS 提交 modes/roles/settings 成功。实时审计 306 个路由位置无 vision、非路由自定义设置不变，授权 25→18，16 处推理设置降至 default。二次 dry-run 零变更、零警告；四模式/三模块实时数据 DOM 和 Client Slot 核验通过（非窗口截图）。基础 239 项及额外 CLI 回归全绿；未调用真实模型。详细证据见 docs/v2.6.3-non-vision-deployment.md。"
+            ],
+            "en": [
+              "After a full restart, Host 51289 runs 2.6.3 and the hash-CAS migration committed modes, roles and settings with backups. Live audit found no vision aliases across 306 route positions and no non-route customization changes; authorization deduplicated from 25 to 18 and 16 reasoning policies fell back to default. A second dry-run reports zero changes/warnings. Four-mode/three-module live-data DOM and Client Slot checks pass (not a window screenshot). The base 239 checks plus CLI regression pass. No real model calls. Details: docs/v2.6.3-non-vision-deployment.md."
+            ]
+          }
+        }
+      ],
+      "links": [
+        {
+          "label": {
+            "zh": "详细部署与迁移记录",
+            "en": "Deployment and migration details"
+          },
+          "href": "docs/v2.6.3-non-vision-deployment.md"
+        }
+      ]
+    },
+    {
+      "version": "v2.6.2",
+      "date": "2026-11-16",
+      "title": {
+        "zh": "一键 AI 改为异步任务与短轮询，消除长 POST 无响应",
+        "en": "Move one-click AI to asynchronous jobs and short polling"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "真实故障与根因边界",
+            "en": "Real failure and root-cause boundary"
+          },
+          "items": {
+            "zh": [
+              "最新真实反馈 `TypeError Failed to fetch cause=TypeError Failed to fetch` 精确对应旧客户端对浏览器原生 TypeError 的同名二次包装，证明 AI POST 在收到任何 HTTP 响应前断连；它不是 Kimi 权限或额度错误文本。",
+              "旧接口把目录读取、模式加载和四模式串行生成压在一个 POST 中；每流最长 90 秒，总计可约 360 秒无响应头或响应体。Host 的具体 socket 空闲阈值未坐实，因此不编造超时数值。"
+            ],
+            "en": [
+              "The exact live feedback `TypeError Failed to fetch cause=TypeError Failed to fetch` matched the old client wrapping a native browser TypeError in another TypeError, proving the AI POST disconnected before any HTTP response; it was not a Kimi permission or quota error message.",
+              "The old endpoint held catalog loading, mode loading and four serial generations in one POST. With up to 90 seconds per stream, the request could remain silent for about 360 seconds. The Host's exact socket idle threshold is not proven and is not invented."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "即时任务创建与有界后台队列",
+            "en": "Immediate creation and bounded background queue"
+          },
+          "items": {
+            "zh": [
+              "新增统一 `/ai/jobs`：POST 在授权与请求校验后立即返回 202、jobId 和 queued；GET 按 id 查询 queued/running/succeeded/failed。目录与四模式生成在后台执行，不再占用一个长空响应 POST。",
+              "任务全局 maxActive=1、最多四个未完成、总数最多 32 个，终态 TTL 30 分钟；支持 requestId 幂等和冲突拒绝。任务仅存内存，Host 重启后旧 id 明确返回 404。",
+              "原 `/ai/configure` 与 `/ai/recommend` 同步端点保留，既有 API 调用者不被迫迁移。"
+            ],
+            "en": [
+              "A unified `/ai/jobs` endpoint now returns 202, jobId and queued immediately after authorization and request validation; GET reports queued/running/succeeded/failed. Catalog work and four-mode generation run in the background instead of holding one silent POST.",
+              "Jobs use global maxActive=1, at most four unfinished jobs and 32 total retained jobs, with a 30-minute terminal TTL. requestId idempotency and conflict rejection are supported. Jobs are memory-only; old ids return 404 after a Host restart.",
+              "The original synchronous `/ai/configure` and `/ai/recommend` endpoints remain available for existing API callers."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "短轮询与生成不重试",
+            "en": "Short polling without generation retry"
+          },
+          "items": {
+            "zh": [
+              "两个一键入口每 1000ms 查询任务，成功后复用原有草稿合并、用户编辑保护、推荐结果和部分失败显示。",
+              "查询遇到暂时网络错误或 502/503/504 时最多连续容忍五次，只重试 GET，绝不重新 POST 生成；总查询上限 480 秒。超时显示 jobId，并提醒任务可能仍在后台执行、不要立即重复生成。",
+              "修复 URL 构造丢失查询字符串的问题，jobId 会完整保留；aiBusy 在成功、失败和超时后复位。"
+            ],
+            "en": [
+              "Both one-click actions poll every 1000ms and reuse the existing draft merge, concurrent-edit protection, recommendation display and partial-failure behavior on success.",
+              "Transient network errors and 502/503/504 poll responses are tolerated up to five consecutive attempts by retrying GET only—never the generation POST. Polling is capped at 480 seconds; timeout shows the jobId and warns that background work may still be running.",
+              "URL construction now preserves the query string and jobId; aiBusy resets after success, failure and timeout."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "清晰网络反馈与不变安全边界",
+            "en": "Clear network feedback and unchanged safety boundaries"
+          },
+          "items": {
+            "zh": [
+              "所有浏览器 fetch 无响应错误统一转换为有语义的 no-response 错误，不再同名包装 TypeError；原始错误作为 cause 保留，嵌套 code/status 仍有界显示。",
+              "授权仍在入队前检查，未授权任务零模型调用。四模式串行、单流 90 秒、8000 输出上限、无自动模型回退、无自动保存/启用、无 provider 生成代码修改均保持不变。"
+            ],
+            "en": [
+              "Every browser fetch rejection without an HTTP response becomes a semantic no-response error instead of another same-named TypeError. The original error remains as cause, with bounded nested code/status details.",
+              "Authorization still occurs before enqueue and unauthorized jobs make zero model calls. Four-mode serialization, the 90-second stream timeout, the 8000-token cap, no silent model fallback, no automatic save/enable and no generated-provider edits remain unchanged."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "验证与交付边界",
+            "en": "Verification and delivery boundary"
+          },
+          "items": {
+            "zh": [
+              "离线任务管理器、宿主路由和真实客户端 DOM mocks 覆盖延迟执行、串行队列、容量/TTL/404、requestId、四模式四次 mock 流、未授权零调用、短轮询恢复、busy 复位和 bare/nested fetch 错误。",
+              "独立回归通过：AI jobs 11、AI 38、客户端 62、smoke 97、执行接线 14；覆盖 480000ms 超时、jobId 提示、aiBusy 复位与查询字符串保留。",
+              "真实 Host 保存数据 + 新客户端集成检查只模拟任务 POST/GET：成功轮询、四次瞬时查询失败不重复生成、无重复 TypeError、ECONNREFUSED 可见；没有真实生成、保存或启用请求。",
+              "当前 GUI 已显示 2.6.2；安全实时探针证明 /ai/jobs 对未授权执行模型返回 403、对不存在任务返回 404 job-not-found，且未发起生成。/modes 的旧处理器仍显示 2.6.1，属于重载后的版本显示偏差，详见 docs/v2.6.2-one-click-async-jobs.md。"
+            ],
+            "en": [
+              "Offline manager, host-route and real client-DOM mocks cover deferred execution, serial queueing, capacity/TTL/404, requestId behavior, exactly four mock streams, zero calls for unauthorized jobs, poll recovery, busy reset and bare/nested fetch failures.",
+              "Independent verification passed: AI jobs 11, AI 38, client 62, smoke 97 and execution-wiring 14 checks, including the 480000ms timeout, jobId guidance, aiBusy reset and preserved query strings.",
+              "The real-saved-data client integration check mocks only job POST/GET: successful polling, four transient poll failures without another generation POST, no duplicated TypeError and visible ECONNREFUSED. It sends no real generation, save or enable request.",
+              "The current GUI shows 2.6.2. Safe live probes prove /ai/jobs rejects an unauthorized executor with 403 and returns 404 job-not-found for an unknown id without generation. The retained /modes handler still reports 2.6.1; this reload version skew is documented in docs/v2.6.2-one-click-async-jobs.md."
+            ]
+          }
+        }
+      ],
+      "files": [
+        "lib/ai-jobs.js",
+        "lib/client.js",
+        "lib/index.js",
+        "package.json",
+        "release-notes.json",
+        "docs/v2.6.2-one-click-async-jobs.md",
+        "docs/release-history.md",
+        "test/ai-jobs.mjs",
+        "test/modes-client.mjs",
+        "test/smoke.mjs"
+      ]
+    },
+    {
+      "version": "v2.6.1",
+      "date": "2026-11-16",
+      "title": {
+        "zh": "修复一键 AI 的通用网络报错，保留真实底层原因",
+        "en": "Replace generic one-click AI network errors with actionable diagnostics"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "真实链路与问题边界",
+            "en": "Live-path evidence and problem boundary"
+          },
+          "items": {
+            "zh": [
+              "用户授权的一次最小真实调用证明 kimi-subscription/k3.1-pro 可在 6 秒内返回 OK；原一键失败不是当前 Kimi 模型或订阅的全面不可用。",
+              "浏览器到本地 Host 的请求失败与模型流内部网络错误都可能曾被压缩为 Failed to fetch；本版本分别处理，但不伪称已确定那次失败的唯一根因。"
+            ],
+            "en": [
+              "One explicitly authorized minimal call proved kimi-subscription/k3.1-pro can return OK in six seconds; the earlier one-click failure is not a current total Kimi model or subscription outage.",
+              "Both browser-to-local-Host failures and nested model-stream network errors could previously collapse into Failed to fetch; this release separates them without claiming a proven sole historical root cause."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "嵌套错误与网络分类",
+            "en": "Nested causes and network classification"
+          },
+          "items": {
+            "zh": [
+              "有界错误格式化保留嵌套 cause、code、status 和有限的 AggregateError 信息，同时防止循环引用，不输出 stack、凭据、请求头或完整配置对象。",
+              "客户端明确区分本地 Host fetch 无响应、请求中止、HTTP 非成功状态和 JSON 解析失败；一键配置与一键推荐显示可操作提示及原始原因。",
+              "后端单模式错误继续保留权限、限流、传输和模型返回信息，便于定位而不是只显示通用网络短语。"
+            ],
+            "en": [
+              "Bounded error formatting retains nested cause, code, status and limited AggregateError details, handles cycles, and excludes stacks, credentials, headers and full configuration objects.",
+              "The client distinguishes local-Host fetch failure, request abort, unsuccessful HTTP status and JSON parsing errors; both one-click actions show actionable guidance plus the original reason.",
+              "Backend per-mode errors retain permission, rate-limit, transport and model-response details instead of flattening everything to a generic network phrase."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "行为与预算保持不变",
+            "en": "Behavior and budgets remain unchanged"
+          },
+          "items": {
+            "zh": [
+              "不自动重试、不静默切换执行模型、不自动保存、扩大授权或启用模式。",
+              "不改变四模式串行、maxActive=1、单流 90 秒超时或 8000 输出上限；不修改 Kimi provider 生成代码。"
+            ],
+            "en": [
+              "No automatic retry, silent executor-model switch, automatic save, authorization expansion or mode enablement.",
+              "Four-mode serialization, maxActive=1, the 90-second per-stream timeout and the 8000-token output cap remain unchanged; generated Kimi provider code is untouched."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "验证范围",
+            "en": "Verification scope"
+          },
+          "items": {
+            "zh": [
+              "离线 mocks 覆盖嵌套 Failed to fetch、AggregateError、AbortError、HTTP 错误、finish 错误和两个一键入口的真实界面显示。",
+              "独立验收全部通过：AI 38 项、客户端 60 项、宿主契约 94 项、执行 14 项；真实保存数据 + 新客户端的故障注入界面同时显示 Kimi 执行模型、网络分类与嵌套 ECONNREFUSED 原因。",
+              "完整重启后，Host /modes、release-notes 与当前 GUI 均已确认 2.6.1；真实保存数据的故障注入复验再次通过。除用户明确授权的一次最小 Kimi 调用外，没有再次发起真实模型请求。",
+              "完整证据与边界见 docs/v2.6.1-one-click-network-diagnostics.md。"
+            ],
+            "en": [
+              "Offline mocks cover nested Failed to fetch, AggregateError, AbortError, HTTP errors, finish errors and real rendering for both one-click actions.",
+              "Independent acceptance passed: AI 38, client 60, host-contract 94 and execution 14 checks. The real-data fault-injection UI shows the selected Kimi executor, network classification and nested ECONNREFUSED cause.",
+              "After the full restart, Host /modes, release-notes and the actual settings GUI all confirm 2.6.1, and the real-data fault-injection check passed again. No additional real model request was made beyond the single explicitly authorized minimal Kimi call.",
+              "See docs/v2.6.1-one-click-network-diagnostics.md for complete evidence and boundaries."
+            ]
+          }
+        }
+      ],
+      "files": [
+        "lib/client.js",
+        "lib/index.js",
+        "lib/ai-assistant.js",
+        "release-notes.json",
+        "docs/v2.6.1-one-click-network-diagnostics.md",
+        "docs/release-history.md",
+        "test/ai-assistant.mjs",
+        "test/modes-client.mjs",
+        "test/smoke.mjs"
+      ]
+    },
+    {
+      "version": "v2.6.0",
+      "date": "2026-11-16",
+      "title": {
+        "zh": "修复四模式错位，恢复模型自由选择权",
+        "en": "Correct four-mode labels and restore model freedom of choice"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "四模式显示与旧数据兼容",
+            "en": "Four-mode display and saved-data compatibility"
+          },
+          "items": {
+            "zh": [
+              "修复已保存名称错位导致的“经济、经济、普通、穷鬼”：四个按钮重新固定显示经济、普通、性能、穷鬼。",
+              "只读加载即纠正旧名称和旧模式说明，不要求用户逐个保存；内部 ID、当前模式、revision、updatedAt、角色和主备升级路由保持不变。",
+              "保存规范化与客户端显示使用同一组 canonical 元数据，避免后端已修正而界面仍沿用旧名称。"
+            ],
+            "en": [
+              "Fix shifted saved labels that rendered Economy, Economy, Normal and Broke: the four buttons now consistently show Economy, Normal, Performance and Broke.",
+              "Repair legacy labels and descriptions during read-side presentation without requiring per-mode saves; preserve internal IDs, current mode, revision, updatedAt, roles and primary/backup/upgrade routes.",
+              "Use the same canonical metadata for save normalization and client rendering so stale labels cannot survive in only one layer."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "模型中立策略与用户选择权",
+            "en": "Model-neutral policies and user choice"
+          },
+          "items": {
+            "zh": [
+              "经济模式改为：GPT 不可用或额度不足时，优先高质量、成本可控的国产模型；这是推荐排序，不排除其他已授权模型。",
+              "普通模式强调质量、速度和成本均衡；性能模式强调复杂任务和充分校验；穷鬼模式强调极限节约成本，不再附带侮辱性文案。",
+              "取消按模式、provider 或具体模型禁选，取消穷鬼模式强制关闭顾问、强制清空升级路线和唯一“吃土去”选项。",
+              "任何已授权模型均可由用户选择；授权范围、模型声明的推理能力、reviewer 异构审校和 privacy-memory 云端回退保护仍然有效。",
+              "旧配置中的“吃土去”升级条件在只读显示和保存规范化时替换为中性说明；仅处理这个精确旧默认值，用户自定义条件不变。"
+            ],
+            "en": [
+              "Economy now prefers high-quality, cost-controlled domestic models when GPT is unavailable or out of quota; this is a recommendation, not an exclusion of other authorized models.",
+              "Normal balances quality, speed and cost; Performance prioritizes complex work and validation; Broke minimizes cost without insulting copy.",
+              "Remove mode-, provider- and model-specific selection bans, plus forced advisor disabling, forced upgrade clearing and the single joke upgrade option in Broke mode.",
+              "Users can select any authorized model; authorization, declared reasoning capabilities, heterogeneous review and privacy-memory cloud fallback protections remain enforced.",
+              "Replace the exact legacy advisor condition joke during read-side display and save normalization with neutral guidance; preserve every custom user condition."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "Kimi 目录与精确去重",
+            "en": "Kimi catalog and exact-key deduplication"
+          },
+          "items": {
+            "zh": [
+              "目录与 AI 候选按 provider/model 完整键去重并合并较完整元数据；同键重复会产生警告，绝不把 kimi-subscription 与 kimi-subscription-vision 合并。",
+              "当前声明目录保留六个唯一 ID：k3.1-pro、k3.1-pro-highspeed、k3、k3-256k、kimi-for-coding、kimi-for-coding-highspeed。",
+              "目录可见不等于订阅实际可用。原生 Host“实时模型”双行问题单独核验，本版本不删除用户授权，也不伪称未点击测试的模型已完成订阅验收。"
+            ],
+            "en": [
+              "Deduplicate catalog and AI candidates by the full provider/model key, merge richer metadata and warn on exact duplicates; never merge kimi-subscription with kimi-subscription-vision.",
+              "Keep six unique declared IDs: k3.1-pro, k3.1-pro-highspeed, k3, k3-256k, kimi-for-coding and kimi-for-coding-highspeed.",
+              "Catalog visibility is not subscription entitlement. Verify the native Host realtime-model duplication separately; do not delete user authorizations or claim untested models passed subscription acceptance."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "一键配置与一键推荐稳健性",
+            "en": "One-click assistant reliability"
+          },
+          "items": {
+            "zh": [
+              "四个模式改为逐模式串行调用，最大活跃模型请求数为 1，降低订阅 provider 的瞬时并发压力。",
+              "单个模式失败后继续处理其余模式，保留成功、警告和错误；不自动重试、不静默切换执行模型，也不把部分失败显示为全部成功。",
+              "流式读取兼容 text 与 legacy delta 文本分块，以及不同 finish 错误形状，避免空输出或真实权限/限流错误被错误吞掉。",
+              "AI 结果仍只形成可审查草稿，不自动保存、扩大授权或启用模式。"
+            ],
+            "en": [
+              "Run the four modes sequentially with at most one active model request, reducing instantaneous concurrency pressure on subscription providers.",
+              "Continue remaining modes after a single-mode failure and preserve successes, warnings and errors; never retry automatically, silently switch executor models or present partial failure as complete success.",
+              "Accept text and legacy delta chunks plus multiple finish-error shapes so empty output and real permission/rate failures are not swallowed.",
+              "AI output remains a reviewable draft and never automatically saves, expands authorization or enables a mode."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "验证范围与未决边界",
+            "en": "Verification scope and open boundaries"
+          },
+          "items": {
+            "zh": [
+              "离线回归覆盖旧名称只读修复、配置元数据不变、四模式授权路线可选、穷鬼顾问与升级可配置、精确去重、跨 provider 隔离、串行调用和失败继续。",
+              "流式故障注入覆盖 legacy delta、finish 错误、权限/限流传播与部分失败；这些 mock 证明代码稳健性，不等于已复现或证明用户那次线上失败的唯一根因。",
+              "独立验收：AI 31 项、客户端 56 项、Smoke 93 项、执行接线 14 项全部通过；真实错位数据渲染检查通过。完整记录见 docs/v2.6.0-mode-choice-and-kimi-catalog.md；当前 Host 重启与解锁后的桌面 GUI 仍待核验。"
+            ],
+            "en": [
+              "Offline regressions cover read-side label repair, unchanged configuration metadata, authorized-route selection in every mode, configurable Broke advisor/upgrades, exact deduplication, cross-provider isolation, sequential calls and failure continuation.",
+              "Stream fault injection covers legacy delta, finish errors, permission/rate propagation and partial failure; mocks prove robustness, not the sole root cause of the user's earlier live failure.",
+              "Independent verification passed: AI 31, client 56, smoke 93 and execution-wiring 14 checks, plus rendering against the real shifted saved data. See docs/v2.6.0-mode-choice-and-kimi-catalog.md; the current Host restart and unlocked desktop GUI verification remain pending."
+            ]
+          }
+        }
+      ],
+      "files": [
+        "lib/modes.js",
+        "lib/client.js",
+        "lib/index.js",
+        "lib/ai-assistant.js",
+        "lib/tiers.js",
+        "release-notes.json",
+        "docs/v2.6.0-mode-choice-and-kimi-catalog.md",
+        "docs/release-history.md",
+        "test/ai-assistant.mjs",
+        "test/modes-client.mjs",
+        "test/smoke.mjs",
+        "test/execution.mjs"
+      ]
+    },
+    {
+      "version": "v2.5.0",
+      "date": "2026-11-15",
+      "title": {
+        "zh": "rc.3 适配、当前部署预设刷新与派工边界澄清",
+        "en": "rc.3 adaptation, current-deployment preset refresh, and explicit dispatch boundaries"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "根据当前部署重建默认推荐",
+            "en": "Recommendations rebuilt from the current deployment"
+          },
+          "items": {
+            "zh": [
+              "以当前 14 个 provider、130 个模型的真实目录为输入，修复长文、创作和研究升级中已经失效的 moonshotai/kimi-k3，统一改用当前存在的 moonshotai-cn provider。",
+              "默认授权更新为 12 条：保留 DeepSeek、OpenAI、Kimi K3 和 Gemini 3.1 Pro 的角色分工，接入此前已授权但未承担角色的 gpt-5.6-sol，并加入 Kimi 3.1 Pro 与 Gemini 4 Argon 的明确应用位置。",
+              "gpt-5.6-sol 用于 Lead/架构备用；Kimi 3.1 Pro 用于普通模式长文与创作升级、性能模式主用；Gemini 4 Argon 用于多模态与视觉升级及性能主用，不再让新增模型只出现在白名单中而没有角色。",
+              "Kimi 3.1 Pro 当前没有声明推理档位，因此只使用模型默认；DeepSeek、Kimi 和 Gemini 不再被猜测为支持 medium、xhigh 或 max 等未声明档位。"
+            ],
+            "en": [
+              "Rebuilds defaults from the live 14-provider, 130-model catalog and replaces three stale moonshotai/kimi-k3 references with the deployed moonshotai-cn provider.",
+              "Defines twelve default authorizations, wires the previously orphaned gpt-5.6-sol into Lead/architecture backup, and gives Kimi 3.1 Pro and Gemini 4 Argon concrete role positions.",
+              "Kimi 3.1 Pro upgrades long documents and creative work in Normal and becomes their Performance primary; Gemini 4 Argon covers multimodal and vision upgrades and Performance primaries.",
+              "Kimi 3.1 Pro uses model-default reasoning because it declares no efforts. No unsupported effort is guessed for DeepSeek, Kimi, or Gemini."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "四模式预设现在包含完整角色主备升级",
+            "en": "Four-mode presets now include complete role primary, backup, and upgrade routes"
+          },
+          "items": {
+            "zh": [
+              "经济、普通、性能不再共用一份未区分的角色清单：普通模式保留均衡主备并开放升级，性能模式将 Codex、Kimi 3.1 Pro 和 Gemini 4 Argon 放入明确主用位置，穷鬼模式继续执行费用硬约束。",
+              "性能 Lead 使用完整的低/中/高映射 low→low、medium→medium、high→xhigh；性能顾问固定 xhigh，只在复杂架构或高风险场景按需咨询。其余推荐路线默认使用模型自身推理策略。",
+              "恢复预设由后端提供完整数据，客户端不再维护另一份容易过期的硬编码副本；恢复内容包含 Lead、顾问、角色、派工策略与执行目标，自定义角色身份和职责不被删除。",
+              "恢复预设会把引用模型并入授权草稿，恢复默认授权仍需单独确认；两者都只修改草稿，不会自动保存、扩大实际授权或启用模式。"
+            ],
+            "en": [
+              "Economy, Normal, and Performance no longer share an undifferentiated role list. Normal stays balanced, Performance assigns explicit primaries, and Broke keeps its hard cost guardrails.",
+              "Performance Lead maps low/medium/high to low/medium/xhigh and its advisor uses fixed xhigh only for complex or high-risk consultation. Other routes keep model-default reasoning.",
+              "The backend is now the single source for complete restore presets. Client restore covers Lead, advisor, roles, dispatch policy, and execution targets without deleting custom role identities or purposes.",
+              "Preset restore unions referenced routes into the authorization draft. Neither preset nor authorization restore saves, grants live access, or enables a mode automatically."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "rc.3 团队适配：保留真实功能，隐去无执行器选项",
+            "en": "rc.3 team adaptation: keep working controls and hide non-executing options"
+          },
+          "items": {
+            "zh": [
+              "“智能团队配置”更名为“Lead 与派工策略”，团队区更名为“子代理派工策略”，避免把少量路由覆盖误解为完整的官方团队生命周期管理。",
+              "保留确实有应用路径的 teamRole 主用路线覆盖与 maxConcurrentWorkers：前者只在 role_subagent 显式传 teamRole 时生效，后者只限制插件自己的派工并发，不宣称控制其他插件。",
+              "新界面隐去没有自动执行器的重试次数、预算上限、写入隔离和升级阈值；旧字段仍兼容读取与保存，不会静默删除既有配置。",
+              "rc.3 任务板的 agentTeams.createTask 只创建共享待办，不创建独立会话，也不接受模型参数。新预设关闭不可执行的“任务板独立会话”目标，仅保留只读边界说明和真实原生同树子代理。",
+              "本插件不引用已删除的 Python PTC、experimental-agent-team 或旧 TeamActionProps；当前 subagents.startActivation 的 provider/model/reasoningEffort 派工契约继续可用。"
+            ],
+            "en": [
+              "Renames Team Configuration to Lead & Dispatch Policy so route overrides are not mistaken for full official team lifecycle management.",
+              "Keeps the working explicit teamRole override and plugin-scoped maxConcurrentWorkers while making their role_subagent-only scope visible.",
+              "Hides retry, budget, write-isolation, and escalation controls that have no automatic executor. Legacy fields remain schema-compatible and are not silently deleted.",
+              "In rc.3, agentTeams.createTask is a shared TODO ledger, not an independent session or model dispatcher. Recommended presets disable that target and retain the real native same-tree subagent path.",
+              "The plugin uses neither removed Python PTC nor legacy experimental team APIs; the current startActivation provider/model/reasoningEffort contract remains in use."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "版本保存、用户提升与验证边界",
+            "en": "Version preservation, user benefits, and verification boundaries"
+          },
+          "items": {
+            "zh": [
+              "升级前 live 四模式、全局角色、授权、执行接线和模型分层已保存到 backups/v2.4.0-live-config-20261115.json；旧规划文档保留原文，只增加指向新基线的归档提示。",
+              "用户不再需要手工排查失效 provider，也不需要为每个模式重复决定哪些新模型应放在主用、备用或升级位置；仍可逐条审查后再保存。",
+              "完整路线矩阵、12 条默认授权、推理限制和团队处理理由记录在 docs/v2.5.0-rc3-preset-refresh.md，后续开发者可据此维护而不是依赖旧对话记忆。",
+              "新增预设完整性、授权覆盖、推理合法性、自定义角色保留、团队真实覆盖与并发、无执行器控件隐藏和穷鬼约束回归；测试不调用真实付费模型，也不把目录元数据当作质量或账单验收。"
+            ],
+            "en": [
+              "The pre-upgrade live modes, roles, authorizations, integration, and tiers are preserved in backups/v2.4.0-live-config-20261115.json. The old planning document remains intact except for an archive pointer.",
+              "Users no longer need to diagnose stale providers or repeatedly assign every new model manually; all generated changes remain reviewable drafts.",
+              "The complete matrix, twelve authorizations, reasoning limits, and team decisions are documented in docs/v2.5.0-rc3-preset-refresh.md for future maintainers.",
+              "Regressions cover preset completeness, authorization coverage, legal reasoning, custom roles, real team overrides and concurrency, hidden non-executing controls, and Broke guardrails without paid calls or quality/billing claims."
+            ]
+          }
+        }
+      ],
+      "files": [
+        "lib/modes.js — 四模式完整角色预设、推理策略、穷鬼约束与执行目标。",
+        "lib/index.js — 当前默认角色、12 条授权、推荐预设接口与 v2.5.0 版本信息。",
+        "lib/client.js — 单一数据源恢复预设、授权草稿合并、Lead 与派工策略界面。",
+        "lib/execution.js、lib/tiers.js、cordis.patch.yml — 派工边界说明、模型分层和安装默认配置。",
+        "docs/v2.5.0-rc3-preset-refresh.md — 当前部署矩阵、rc.3 判断依据和维护合同。",
+        "backups/v2.4.0-live-config-20261115.json — 升级前 live 配置只读快照。",
+        "test/ — 预设、客户端、Smoke 与执行接线离线回归。"
+      ]
+    },
+    {
+      "version": "v2.4.0",
+      "date": "2026-11-15",
+      "title": {
+        "zh": "AI 一键配置、市场候选推荐与可追溯版本历史",
+        "en": "AI-assisted configuration, market recommendations, and traceable release history"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "一键配置：从手工逐项选择变为四模式草稿",
+            "en": "One-click configuration: four-mode drafts instead of manual repetition"
+          },
+          "items": {
+            "zh": [
+              "在模型配置页新增授权模型下拉框和一键配置按钮；只有当前已授权模型可以作为执行者，不能使用未授权模型代替用户发起请求。",
+              "执行模型读取本机模型目录中的全部 provider/model、模型说明、输入模态以及已声明的推理档位，按经济、普通、性能、穷鬼四种模式分别生成配置，避免一次性输出过长导致漏角色。",
+              "每个模式覆盖 Lead、顾问、各子代理角色和团队角色的主用、备用、升级路线；AI 只负责路线建议，角色名称、职责、启停状态、预算、并发、写入隔离和任务目标等安全设置继续以现有配置为准。",
+              "配置结果先进入可编辑草稿，并把新引用模型加入授权草稿；系统不会自动保存、启用模式或扩大实际授权。用户仍可逐条检查、修改，再使用保存全部草稿一次提交。",
+              "四个模式分别返回成功、失败和警告；某一个模式失败不会掩盖其他模式的结果，也不会把失败模式伪装成已完成。"
+            ],
+            "en": [
+              "Adds an authorized-model selector and one-click action. Only an already authorized model may execute the request.",
+              "The selected model receives the complete local provider/model catalog, descriptions, input modalities, and declared reasoning efforts, then generates economy, normal, performance, and broke configurations separately.",
+              "Lead, advisor, subagent, and team routes include primary, backup, and upgrade positions. Role identity, purpose, enabled state, budget, concurrency, write isolation, and task targets remain authoritative local settings.",
+              "Results are editable drafts. Newly referenced models are added only to the authorization draft; nothing is saved, enabled, or authorized automatically. Save All Drafts provides an explicit final review step.",
+              "Each mode reports its own result and warnings. A partial failure remains visible and is never presented as a complete success."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "推理映射：按真实能力生成，拒绝猜档位",
+            "en": "Reasoning maps: generated from declared capabilities, never guessed"
+          },
+          "items": {
+            "zh": [
+              "默认推理、固定推理和按难度映射沿用现有扁平配置结构；固定档位只能使用模型目录明确声明的 effort。",
+              "选择按难度映射时，低档、中档、高档三个映射必须同时存在且均为该模型支持的档位；任何一项缺失或不合法，整条路线回退为默认推理并显示警告。",
+              "穷鬼模式继续执行低成本硬约束：过滤不符合规则的路线，关闭顾问和团队顾问，并清空角色升级路线，防止推荐结果绕过既有费用保护。"
+            ],
+            "en": [
+              "Default, fixed, and difficulty-based reasoning keep the existing flat schema. Fixed efforts must be explicitly declared by the selected model.",
+              "Smart mapping requires complete low, medium, and high entries. Missing or unsupported entries revert the whole route to default reasoning with a visible warning.",
+              "Broke mode keeps its cost guardrails: ineligible routes are filtered, advisor routes are disabled, and role upgrade routes remain empty."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "一键推荐：按角色给候选，而不是给一张模型排行榜",
+            "en": "One-click recommendations organized by role, not a generic leaderboard"
+          },
+          "items": {
+            "zh": [
+              "新增独立的授权模型下拉框和一键推荐按钮；执行模型根据四种模式定位和每个角色职责生成候选，并说明推荐理由、特色与注意事项。",
+              "经济、普通、性能模式的每个角色最多保留三个有差异的候选，减少同质模型堆叠；穷鬼模式不截断候选，并补齐本地目录中所有符合穷鬼硬约束及角色模态要求的模型，避免 AI 漏项。",
+              "候选区分本地目录已有和模型知识中的市场候选；市场推荐不代表实时价格或供应商可用性查询，用户仍需核对官方信息。",
+              "推荐结果按模式和角色分组，只用于阅读和比较，不会自动替换路线、写入授权或启用配置。"
+            ],
+            "en": [
+              "Adds a separate authorized-model selector for recommendations. Candidates are generated from mode intent and role purpose, with reasons, strengths, and cautions.",
+              "Economy, normal, and performance keep at most three distinctive candidates per role. Broke keeps every eligible candidate and backfills all qualifying local entries so AI omissions do not silently reduce coverage.",
+              "Candidates distinguish locally available models from model-knowledge suggestions. Recommendations are not live price or provider-availability checks.",
+              "Results are grouped by mode and role for review only; they never replace routes, grant authorization, or enable a mode."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "用户提升与操作边界",
+            "en": "User benefits and operating boundaries"
+          },
+          "items": {
+            "zh": [
+              "减少在四种模式、多个角色和三级路线之间重复选择的工作量，同时保留人工最终确认权。",
+              "按钮旁明确提示真实模型调用和费用；点击下拉框不会发起生成，失败不会自动重试并连续产生费用。",
+              "保存全部草稿显示待保存数量，按各模式 revision 串行保存，再保存全局授权和角色状态；冲突或部分失败时保留尚未保存的草稿，不宣称跨文件事务具有原子性。",
+              "连接测试仍是独立操作；一键配置和一键推荐不会暗中执行全部模型的付费连通性测试。"
+            ],
+            "en": [
+              "Reduces repetitive route selection across four modes while keeping final confirmation with the user.",
+              "Each action discloses real model usage and cost. Selecting a dropdown sends nothing, and failures do not trigger automatic paid retries.",
+              "Save All Drafts shows the pending count, saves mode revisions serially, then saves global authorization and role state. Conflicts preserve unsaved drafts and are not described as atomic cross-file commits.",
+              "Connection testing remains separate; AI configuration and recommendation do not silently probe every model."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "版本历史与开发者维护",
+            "en": "Release history and maintainer notes"
+          },
+          "items": {
+            "zh": [
+              "版本说明从一行摘要升级为具体改动、用户提升、安全边界、验证范围和文件清单，用户与后续开发者可以理解每次迭代的原因。",
+              "界面直接保留最新两个版本；更早版本统一放入可展开的历史版本区域，每个旧版本仍可独立展开，避免长日志挤占模型配置空间。",
+              "详细说明以工作区 release-notes.json 为唯一展示数据源，并配套 docs/release-history.md 和 docs/v2.4.0-one-click-assistant.md，后续修改无需重新翻阅客户端源码。",
+              "新增 AI 请求解析、能力校验、穷鬼硬约束、授权执行者、无自动写入、草稿冲突和折叠历史的离线回归测试；测试不会调用真实付费模型。"
+            ],
+            "en": [
+              "Release notes now describe concrete changes, user benefits, safety boundaries, verification scope, and affected files.",
+              "Only the latest two releases appear directly. Older releases live under an expandable history group and remain individually expandable.",
+              "Workspace release-notes.json is the display source of truth, accompanied by docs/release-history.md and docs/v2.4.0-one-click-assistant.md.",
+              "Offline regressions cover AI parsing, reasoning capabilities, broke constraints, executor authorization, no automatic writes, draft conflicts, and nested history without paid model calls."
+            ]
+          }
+        }
+      ],
+      "files": [
+        "lib/ai-assistant.js — AI 流式请求、严格 JSON 解析、目录约束、推理映射和推荐归一化。",
+        "lib/index.js — /ai/configure、/ai/recommend、/release-notes 接口及 v2.4.0 版本信息。",
+        "lib/client.js — 一键操作、草稿应用、保存全部草稿、推荐结果和嵌套版本历史。",
+        "release-notes.json — 面向界面的完整迭代说明数据源。",
+        "docs/release-history.md — 版本历史维护入口。",
+        "docs/v2.4.0-one-click-assistant.md — 一键功能契约、使用步骤与限制。",
+        "test/ai-assistant.mjs、test/modes-client.mjs、test/smoke.mjs — 离线回归测试。"
+      ]
+    },
+    {
+      "version": "v2.3.0",
+      "date": "2026-11-15",
+      "title": {
+        "zh": "四模式、三模块设置中心与保存可靠性修复",
+        "en": "Four modes, a three-module settings center, and save reliability fixes"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "模式与界面重构",
+            "en": "Modes and interface restructuring"
+          },
+          "items": {
+            "zh": [
+              "新增穷鬼模式，与经济、普通、性能组成四种运行模式；穷鬼路线、顾问和升级位置受到独立硬约束，避免低价档被高成本模型绕过。",
+              "设置页重组为智能团队配置、模型与角色中心、模型配置三个模块，团队策略、角色路线、模型授权和能力信息不再混在同一长页面。",
+              "物理移除旧的重复授权卡片、角色列表和付费验证入口，而不是用 display:none 保留旧 DOM；测试同步改为验证真实新界面契约。",
+              "授权模型列表改为紧凑网格，集中显示分层、能力缓存、推理档位、默认关闭状态、角色引用、撤销授权和独立连接测试。"
+            ],
+            "en": [
+              "Adds Broke alongside Economy, Normal, and Performance, with hard cost constraints for routes, advisors, and upgrades.",
+              "Reorganizes settings into Team, Roles, and Models modules instead of one mixed page.",
+              "Physically removes duplicate legacy authorization, role, and paid-validation UI rather than hiding obsolete DOM for tests.",
+              "Consolidates tier, capability, reasoning, default-off state, references, revoke, and connection testing into a compact authorization grid."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "保存、冲突与失败恢复",
+            "en": "Saving, conflicts, and failure recovery"
+          },
+          "items": {
+            "zh": [
+              "授权修改单独纳入脏状态，避免只改授权时保存按钮仍不可用；模式保存与全局角色保存串行执行并防止重复点击。",
+              "全局角色读取失败时不再默认启用写入，缺少 enabled 或 revision 时明确阻止保存，避免覆盖未知状态。",
+              "全局角色保存始终携带 expectedRevision；409 冲突、网络异常和部分成功都会保留待保存状态，不用成功提示掩盖未完成写入。",
+              "修复快照测试中的 select 选中值同步，并增加角色加载失败、角色保存异常、全局冲突和授权单独保存回归。"
+            ],
+            "en": [
+              "Tracks authorization-only edits as dirty and serializes mode/global saves with reentry protection.",
+              "Blocks global writes when enabled state or revision is unavailable instead of failing open.",
+              "Sends expectedRevision for global role writes and preserves dirty state on conflicts, network errors, and partial success.",
+              "Adds regressions for role load/save failures, global conflicts, authorization-only saves, and accurate select snapshots."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "用户提升与验证",
+            "en": "User benefits and verification"
+          },
+          "items": {
+            "zh": [
+              "用户可以在一个模型与角色中心维护各模式角色，再于独立模型配置页管理授权和能力，减少重复滚动和误改。",
+              "保存失败和冲突会留下可恢复草稿，降低页面重载或其他会话写入造成的配置丢失风险。",
+              "完成客户端、宿主 Smoke、执行接线和三页离线渲染检查，并在实际桌面设置页逐项核对三个模块及真实模型数据。",
+              "连接测试、能力刷新和模型分层刷新保持独立按钮；自动测试不触发真实模型计费。"
+            ],
+            "en": [
+              "Separates role maintenance from model authorization and removes repetitive scrolling.",
+              "Keeps recoverable drafts after conflicts and failed writes.",
+              "Verified client, host smoke, execution wiring, offline renders, and the live desktop settings page with real model data.",
+              "Connection tests and metadata refreshes remain explicit actions; automated regressions make no paid model calls."
+            ]
+          }
+        }
+      ],
+      "files": [
+        "lib/client.js — 三模块设置中心、授权网格、草稿保存与冲突处理。",
+        "lib/modes.js — 四模式预设、穷鬼约束、路线规范化与启用校验。",
+        "lib/tiers.js — 模型分层和穷鬼路线硬约束。",
+        "test/modes-client.mjs、test/smoke.mjs、test/execution.mjs — 交互、宿主与执行回归。"
+      ]
+    },
+    {
+      "version": "v2.2.0",
+      "date": "2026-11-14",
+      "title": {
+        "zh": "能力状态、执行接线与任务板边界",
+        "en": "Capability states, execution wiring, and task-board boundaries"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "具体优化",
+            "en": "Concrete improvements"
+          },
+          "items": {
+            "zh": [
+              "将能力未知、失效和过期状态改为只读展示与显式刷新，避免陈旧缓存被误认为实时连接成功。",
+              "补充执行接线说明和角色派工快照，使会话派发使用冻结的模式版本，后续编辑不会悄悄改变已运行会话的路线。",
+              "接入团队角色覆盖，同时限制任务板执行路径；不满足条件时给出禁用原因，不再呈现看似可用但无法保证权限的入口。",
+              "保存与启用保持分离，启用前重新检查路线、授权和能力状态。"
+            ],
+            "en": [
+              "Makes unknown, failed, and stale capability states explicit and read-only until refreshed.",
+              "Adds execution-wiring guidance and frozen role-dispatch snapshots so later edits do not silently alter running sessions.",
+              "Adds team-role overrides while gating unsupported task-board execution with visible reasons.",
+              "Keeps save and enable separate, with route, authorization, and capability checks before activation."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "用户提升",
+            "en": "User benefits"
+          },
+          "items": {
+            "zh": [
+              "用户能区分模型已配置、能力已验证和能力缓存过期，减少派发后才发现路线不可用的情况。",
+              "运行中的会话有稳定路由依据，配置编辑与线上执行之间的因果关系更清晰。",
+              "任务板不可用时提前说明原因，避免误派工到不受支持的执行目标。"
+            ],
+            "en": [
+              "Distinguishes configured, verified, and stale capabilities to reduce dispatch-time surprises.",
+              "Gives running sessions stable routing and makes configuration changes easier to reason about.",
+              "Explains unsupported task-board paths before work is dispatched."
+            ]
+          }
+        }
+      ],
+      "files": [
+        "lib/capabilities.js — 能力缓存状态和有效期限。",
+        "lib/execution.js — 冻结快照、路线解析和团队覆盖。",
+        "lib/index.js — 执行接线与任务板边界。",
+        "test/execution.mjs、test/smoke.mjs — 快照派发与负向执行测试。"
+      ]
+    },
+    {
+      "version": "v2.1.0",
+      "date": "2026-11-14",
+      "title": {
+        "zh": "推理配置、授权白名单与并发保护",
+        "en": "Reasoning configuration, authorization allowlists, and concurrency protection"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "具体优化",
+            "en": "Concrete improvements"
+          },
+          "items": {
+            "zh": [
+              "将主用、备用、升级路线统一为扁平推理配置，支持默认推理、固定档位和按难度映射的数据结构。",
+              "引入模型能力缓存和按路线解析推理档位，避免为未声明的高档位盲目发起请求。",
+              "建立授权白名单和角色派工工具，spawn 只能使用明确授权的目标；补充未授权、停用角色和隐私角色的负向测试。",
+              "保存与启用分离，并引入 expectedRevision 乐观并发检查，防止两个页面基于同一旧版本互相覆盖。"
+            ],
+            "en": [
+              "Unifies primary, backup, and upgrade routes under flat default, fixed, and smart reasoning schemas.",
+              "Adds capability caching and route-aware effort resolution instead of assuming unsupported efforts.",
+              "Adds authorization allowlists and role dispatch with negative tests for unauthorized, disabled, and privacy roles.",
+              "Separates save from enable and adds expectedRevision optimistic concurrency checks."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "用户提升",
+            "en": "User benefits"
+          },
+          "items": {
+            "zh": [
+              "推理档位和路线可以在同一处维护，减少多套配置格式造成的理解成本。",
+              "未授权模型和不允许云端派发的角色在执行前被拦截，降低误用和隐私风险。",
+              "并发修改会明确提示冲突，而不是静默丢失另一会话的修改。"
+            ],
+            "en": [
+              "Reduces configuration complexity by keeping routes and reasoning together.",
+              "Rejects unauthorized and privacy-sensitive dispatch before execution.",
+              "Surfaces concurrent-edit conflicts instead of silently losing changes."
+            ]
+          }
+        }
+      ],
+      "files": [
+        "lib/modes.js — 扁平路线和推理配置。",
+        "lib/capabilities.js — 模型能力与推理档位缓存。",
+        "lib/index.js — 授权派工、保存/启用和 revision 检查。",
+        "test/smoke.mjs — 授权与并发负向回归。"
+      ]
+    },
+    {
+      "version": "v1.0.0",
+      "date": "2026-11-13",
+      "title": {
+        "zh": "首个运行模式与角色路由版本",
+        "en": "Initial run-mode and role-routing release"
+      },
+      "sections": [
+        {
+          "title": {
+            "zh": "初始能力",
+            "en": "Initial capabilities"
+          },
+          "items": {
+            "zh": [
+              "建立子代理模型授权与角色分配设置页，首次把模型选择和角色职责放入统一配置。",
+              "提供经济、普通、性能三种模式，以及 Lead、顾问和子代理角色的主用、备用、升级路线。",
+              "建立模式草稿、角色配置和持久化存储的基础结构，为后续能力检测、推理映射和执行快照提供扩展点。"
+            ],
+            "en": [
+              "Introduces model authorization and role assignment in one settings surface.",
+              "Provides Economy, Normal, and Performance modes with primary, backup, and upgrade routes for lead, advisor, and subagent roles.",
+              "Establishes mode drafts, role configuration, and persistent storage as the foundation for later capability and execution features."
+            ]
+          }
+        },
+        {
+          "title": {
+            "zh": "初始用户价值",
+            "en": "Initial user value"
+          },
+          "items": {
+            "zh": [
+              "用户可以按任务重要性和成本预期选择模式，而不是所有角色始终使用同一个模型。",
+              "角色路线集中保存，减少每次派工时重复指定模型的操作。"
+            ],
+            "en": [
+              "Lets users choose routes by task importance and cost instead of forcing every role onto one model.",
+              "Stores role routes centrally to avoid repetitive model selection during dispatch."
+            ]
+          }
+        }
+      ],
+      "files": [
+        "lib/client.js — 初始设置界面。",
+        "lib/modes.js — 初始三模式和角色路线。",
+        "lib/index.js — 初始授权、角色和持久化接口。"
+      ]
+    }
+  ]
+}
