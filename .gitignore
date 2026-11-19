@@ -155,3 +155,20 @@ vite.config.ts.timestamp-*
 .nx/cache
 .nx/workspace-data
 .nx/migrate-runs
+
+# DSH local profile data and private configuration snapshots
+/.dsh/
+/backups/
+/tmp-*.json
+/tmp-*.mjs
+
+# Generated delivery and preview output
+/output/
+
+# Local npm cache
+/.npm-cache/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
