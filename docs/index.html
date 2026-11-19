@@ -3,18 +3,1407 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DSH Workflow Model Routing 文档</title>
+  <title>运行模式与团队路由 · DSH Workflow Model Routing</title>
+  <meta name="description" content="DSH Workflow Model Routing 的文档入口：查看 11 章中文使用说明书、交互式 SSS 协作网络与显式 primary / backup / upgrade 派工说明。">
+  <meta name="theme-color" content="#07111d">
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    :root {
+      --bg: #07111d;
+      --bg-soft: #0a1725;
+      --surface: rgba(14, 31, 49, 0.72);
+      --surface-strong: rgba(17, 38, 59, 0.92);
+      --line: rgba(154, 192, 224, 0.15);
+      --line-strong: rgba(154, 192, 224, 0.28);
+      --text: #edf6fc;
+      --muted: #95aabd;
+      --muted-strong: #b8c9d8;
+      --teal: #6de6d6;
+      --teal-dim: rgba(109, 230, 214, 0.12);
+      --sky: #7dd3fc;
+      --sky-dim: rgba(125, 211, 252, 0.12);
+      --amber: #f8cf75;
+      --amber-dim: rgba(248, 207, 117, 0.1);
+      --violet: #c4a7ff;
+      --violet-dim: rgba(196, 167, 255, 0.1);
+      --radius: 22px;
+      --shadow: 0 30px 90px rgba(0, 0, 0, 0.36);
+      --max: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 78% 8%, rgba(35, 111, 142, 0.22), transparent 34rem),
+        radial-gradient(circle at 8% 42%, rgba(80, 57, 127, 0.14), transparent 30rem),
+        linear-gradient(180deg, var(--bg), #081420 45%, #06101a);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(125, 211, 252, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(125, 211, 252, 0.035) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+
+    ::selection { background: rgba(109, 230, 214, 0.28); color: #fff; }
+    a { color: inherit; }
+    svg { display: block; }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      padding: 10px 16px;
+      border-radius: 10px;
+      background: var(--teal);
+      color: #06201d;
+      font-weight: 700;
+      transform: translateY(-160%);
+      transition: transform 180ms ease;
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .shell {
+      width: min(calc(100% - 48px), var(--max));
+      margin-inline: auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      border-bottom: 1px solid var(--line);
+      background: rgba(7, 17, 29, 0.72);
+      backdrop-filter: blur(18px) saturate(130%);
+      -webkit-backdrop-filter: blur(18px) saturate(130%);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      min-height: 78px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-right: auto;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid rgba(109, 230, 214, 0.28);
+      border-radius: 13px;
+      background: linear-gradient(145deg, rgba(109, 230, 214, 0.15), rgba(125, 211, 252, 0.04));
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.08), 0 8px 28px rgba(21, 87, 92, 0.16);
+    }
+
+    .brand-mark svg { width: 26px; height: 26px; }
+    .brand-name { display: grid; gap: 1px; }
+    .brand-name strong {
+      font-size: 0.94rem;
+      font-weight: 680;
+      letter-spacing: 0.01em;
+    }
+    .brand-name small {
+      color: var(--muted);
+      font-size: 0.61rem;
+      font-weight: 700;
+      letter-spacing: 0.17em;
+      line-height: 1.4;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font-size: 0.82rem;
+    }
+
+    .nav-links a {
+      color: var(--muted-strong);
+      text-decoration: none;
+      transition: color 180ms ease;
+    }
+    .nav-links a:hover { color: var(--teal); }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 0 15px;
+      border: 1px solid var(--line-strong);
+      border-radius: 11px;
+      color: var(--text) !important;
+      background: rgba(255, 255, 255, 0.035);
+      font-weight: 620;
+      text-decoration: none;
+      transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+    .nav-cta:hover {
+      border-color: rgba(109, 230, 214, 0.55);
+      background: rgba(109, 230, 214, 0.08);
+      transform: translateY(-1px);
+    }
+    .nav-cta svg { width: 15px; height: 15px; }
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.82fr);
+      gap: clamp(48px, 7vw, 96px);
+      align-items: center;
+      min-height: calc(100vh - 78px);
+      padding-block: clamp(72px, 9vw, 126px);
+    }
+
+    .hero-copy { position: relative; z-index: 2; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      padding: 8px 13px;
+      border: 1px solid rgba(109, 230, 214, 0.22);
+      border-radius: 999px;
+      background: var(--teal-dim);
+      color: #b9eee6;
+      font-size: 0.7rem;
+      font-weight: 720;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 0 4px rgba(109, 230, 214, 0.09), 0 0 16px rgba(109, 230, 214, 0.68);
+      animation: pulse 2.8s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.55; transform: scale(0.78); }
+    }
+
+    h1 {
+      max-width: 10ch;
+      margin: 0;
+      font-size: clamp(3rem, 6.4vw, 6rem);
+      font-weight: 640;
+      letter-spacing: -0.06em;
+      line-height: 0.98;
+    }
+
+    h1 .line { display: block; }
+    h1 .accent {
+      padding-bottom: 0.08em;
+      background: linear-gradient(102deg, #f1fbff 6%, var(--teal) 48%, var(--sky) 92%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-en {
+      margin: 22px 0 0;
+      color: #a8bed0;
+      font-size: clamp(0.86rem, 1.2vw, 1rem);
+      font-weight: 650;
+      letter-spacing: 0.16em;
+      line-height: 1.55;
+      text-transform: uppercase;
+    }
+
+    .hero-desc {
+      max-width: 620px;
+      margin: 26px 0 0;
+      color: var(--muted-strong);
+      font-size: clamp(1rem, 1.35vw, 1.14rem);
+      line-height: 1.85;
+    }
+
+    .hero-desc strong { color: #f5fbff; font-weight: 620; }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 38px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 22px;
+      border: 1px solid transparent;
+      border-radius: 14px;
+      font-size: 0.9rem;
+      font-weight: 680;
+      text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .btn svg { width: 17px; height: 17px; }
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      color: #05221e;
+      background: linear-gradient(120deg, #8ff6e7, #65d9e9);
+      box-shadow: 0 16px 42px rgba(64, 205, 193, 0.2);
+    }
+    .btn-primary:hover { box-shadow: 0 20px 52px rgba(64, 205, 193, 0.3); }
+
+    .btn-secondary {
+      border-color: var(--line-strong);
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.035);
+    }
+    .btn-secondary:hover {
+      border-color: rgba(125, 211, 252, 0.48);
+      background: rgba(125, 211, 252, 0.08);
+    }
+
+    .hero-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px 20px;
+      margin: 32px 0 0;
+      padding: 0;
+      list-style: none;
+      color: var(--muted);
+      font-size: 0.76rem;
+    }
+
+    .hero-facts li { display: inline-flex; align-items: center; gap: 7px; }
+    .hero-facts li::before {
+      content: "";
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    .route-stage {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+      perspective: 1200px;
+    }
+
+    .route-stage::before,
+    .route-stage::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      border: 1px dashed rgba(125, 211, 252, 0.12);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .route-stage::before {
+      width: 520px;
+      height: 520px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-46%, -50%) rotate(-13deg);
+    }
+    .route-stage::after {
+      width: 400px;
+      height: 400px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-40%, -50%) rotate(18deg);
+      border-color: rgba(109, 230, 214, 0.1);
+    }
+
+    .stage-caption {
+      margin: 15px 2px 0;
+      color: #738b9f;
+      font-size: 0.7rem;
+      letter-spacing: 0.03em;
+      text-align: right;
+    }
+
+    .console {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(154, 192, 224, 0.22);
+      border-radius: 26px;
+      background:
+        linear-gradient(145deg, rgba(22, 46, 68, 0.86), rgba(9, 23, 38, 0.94));
+      box-shadow: var(--shadow), inset 0 1px rgba(255, 255, 255, 0.07);
+      transform: rotateY(-2deg) rotateX(1deg);
+    }
+
+    .console::before {
+      content: "";
+      position: absolute;
+      width: 280px;
+      height: 280px;
+      top: -160px;
+      right: -100px;
+      border-radius: 50%;
+      background: rgba(109, 230, 214, 0.13);
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    .console-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 51px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(3, 14, 25, 0.3);
+    }
+
+    .window-dots { display: flex; gap: 6px; }
+    .window-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #395268;
+    }
+    .window-dots span:first-child { background: #9c6c68; }
+    .window-dots span:nth-child(2) { background: #9a8662; }
+    .window-dots span:last-child { background: #588a7e; }
+
+    .console-title {
+      flex: 1;
+      color: #8da6ba;
+      font-size: 0.62rem;
+      font-weight: 720;
+      letter-spacing: 0.16em;
+    }
+
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #9ce8dc;
+      font-size: 0.6rem;
+      font-weight: 760;
+      letter-spacing: 0.12em;
+    }
+    .live-pill::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 10px rgba(109, 230, 214, 0.8);
+    }
+
+    .console-body { padding: 20px; }
+
+    .mode-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: rgba(3, 12, 21, 0.32);
+    }
+
+    .mode-strip span {
+      padding: 6px 4px;
+      border-radius: 7px;
+      color: #70879b;
+      font-size: 0.65rem;
+      text-align: center;
+    }
+
+    .mode-strip .active {
+      color: #beefe9;
+      background: rgba(109, 230, 214, 0.11);
+      box-shadow: inset 0 0 0 1px rgba(109, 230, 214, 0.16);
+    }
+
+    .route-root {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 19px;
+      padding: 13px 14px;
+      border: 1px solid rgba(109, 230, 214, 0.25);
+      border-radius: 14px;
+      background: linear-gradient(100deg, rgba(109, 230, 214, 0.09), rgba(109, 230, 214, 0.025));
+    }
+
+    .node-glyph {
+      display: grid;
+      flex: 0 0 auto;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border: 1px solid rgba(109, 230, 214, 0.25);
+      border-radius: 10px;
+      background: rgba(109, 230, 214, 0.09);
+      color: var(--teal);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .route-root-copy { min-width: 0; flex: 1; }
+    .route-root-copy small,
+    .route-card-copy small {
+      display: block;
+      color: #7f97aa;
+      font-size: 0.59rem;
+      font-weight: 650;
+      letter-spacing: 0.08em;
+      line-height: 1.5;
+      text-transform: uppercase;
+    }
+    .route-root-copy strong { font-size: 0.82rem; font-weight: 650; }
+
+    .root-badge {
+      flex: 0 0 auto;
+      color: #a5cfcc;
+      font-size: 0.56rem;
+      font-weight: 770;
+      letter-spacing: 0.12em;
+    }
+
+    .route-stem {
+      width: 1px;
+      height: 17px;
+      margin-left: 31px;
+      background: linear-gradient(var(--teal), rgba(109, 230, 214, 0.1));
+    }
+
+    .route-list { display: grid; gap: 7px; }
+
+    .route-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 13px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(8, 22, 36, 0.58);
+      transition: border-color 180ms ease, background 180ms ease;
+    }
+    .route-card:hover { border-color: var(--line-strong); background: rgba(13, 31, 48, 0.75); }
+
+    .route-card .node-glyph {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      font-size: 0.66rem;
+    }
+
+    .route-card-copy { flex: 1; min-width: 0; }
+    .route-card-copy strong {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 640;
+      line-height: 1.4;
+    }
+
+    .route-card-copy strong em {
+      margin-left: 5px;
+      color: var(--muted);
+      font-size: 0.58rem;
+      font-style: normal;
+      font-weight: 680;
+      letter-spacing: 0.1em;
+    }
+
+    .route-tag {
+      flex: 0 0 auto;
+      padding: 3px 7px;
+      border-radius: 999px;
+      font-size: 0.54rem;
+      font-weight: 760;
+      letter-spacing: 0.06em;
+      line-height: 1.6;
+    }
+
+    .route-card.primary .node-glyph { color: var(--sky); border-color: rgba(125, 211, 252, 0.25); background: var(--sky-dim); }
+    .route-card.primary .route-tag { color: #bae9ff; background: rgba(125, 211, 252, 0.11); }
+    .route-card.backup .node-glyph { color: var(--amber); border-color: rgba(248, 207, 117, 0.24); background: var(--amber-dim); }
+    .route-card.backup .route-tag { color: #ffe6a6; background: rgba(248, 207, 117, 0.1); }
+    .route-card.upgrade .node-glyph { color: var(--violet); border-color: rgba(196, 167, 255, 0.24); background: var(--violet-dim); }
+    .route-card.upgrade .route-tag { color: #dfd0ff; background: rgba(196, 167, 255, 0.1); }
+
+    .console-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 4px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      color: #71889b;
+      font-size: 0.58rem;
+      letter-spacing: 0.06em;
+    }
+    .console-footer strong { color: #9bc9c3; font-weight: 700; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin: 0 0 clamp(64px, 10vw, 120px);
+      border-block: 1px solid var(--line);
+    }
+
+    .stat {
+      min-width: 0;
+      padding: 26px clamp(10px, 3vw, 32px);
+      border-right: 1px solid var(--line);
+    }
+    .stat:first-child { padding-left: 0; }
+    .stat:last-child { border-right: 0; }
+
+    .stat-value {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      color: #f5fbff;
+      font-size: clamp(1.55rem, 3vw, 2.25rem);
+      font-weight: 620;
+      letter-spacing: -0.04em;
+      line-height: 1.2;
+    }
+    .stat-value small {
+      color: var(--teal);
+      font-size: 0.58rem;
+      font-weight: 740;
+      letter-spacing: 0.12em;
+    }
+    .stat-label {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 0.73rem;
+    }
+
+    section { position: relative; }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+      gap: clamp(36px, 8vw, 100px);
+      align-items: end;
+      margin-bottom: clamp(78px, 11vw, 132px);
+    }
+
+    .kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      color: var(--teal);
+      font-size: 0.61rem;
+      font-weight: 770;
+      letter-spacing: 0.19em;
+      text-transform: uppercase;
+    }
+    .kicker::before {
+      content: "";
+      width: 24px;
+      height: 1px;
+      background: var(--teal);
+    }
+
+    h2 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.7rem);
+      font-weight: 600;
+      letter-spacing: -0.055em;
+      line-height: 1.14;
+    }
+    h2 .muted { color: #8197aa; }
+
+    .intro-copy {
+      max-width: 420px;
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: 0.93rem;
+      line-height: 1.9;
+    }
+    .intro-copy strong { color: var(--muted-strong); font-weight: 620; }
+
+    .explore { margin-bottom: clamp(84px, 12vw, 148px); }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      align-items: end;
+      margin-bottom: 34px;
+    }
+    .section-head p {
+      max-width: 390px;
+      margin: 0 0 5px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .explore-grid {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 18px;
+    }
+
+    .doc-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 380px;
+      overflow: hidden;
+      padding: clamp(25px, 4vw, 38px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(145deg, rgba(20, 42, 62, 0.72), rgba(8, 21, 34, 0.78));
+      text-decoration: none;
+      transition: transform 240ms ease, border-color 240ms ease, box-shadow 240ms ease;
+    }
+    .doc-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(109, 230, 214, 0.62), transparent);
+      opacity: 0.6;
+    }
+    .doc-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(109, 230, 214, 0.3);
+      box-shadow: 0 26px 80px rgba(0, 0, 0, 0.27);
+    }
+    .doc-card:focus-visible {
+      outline: 2px solid var(--teal);
+      outline-offset: 4px;
+    }
+    .doc-card.network::before {
+      background: linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.7), rgba(196, 167, 255, 0.45), transparent);
+    }
+
+    .card-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    .icon-box {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border: 1px solid rgba(109, 230, 214, 0.2);
+      border-radius: 14px;
+      background: var(--teal-dim);
+      color: var(--teal);
+    }
+    .network .icon-box {
+      border-color: rgba(125, 211, 252, 0.2);
+      background: var(--sky-dim);
+      color: var(--sky);
+    }
+    .icon-box svg { width: 23px; height: 23px; }
+
+    .card-index {
+      color: #627b8f;
+      font-size: 0.59rem;
+      font-weight: 720;
+      letter-spacing: 0.16em;
+    }
+
+    .doc-card h3 {
+      margin: 0;
+      color: #f3fbff;
+      font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+      font-weight: 620;
+      letter-spacing: -0.035em;
+      line-height: 1.25;
+    }
+
+    .doc-card .card-desc {
+      max-width: 450px;
+      margin: 13px 0 0;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.8;
+    }
+
+    .chapter-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .chapter-list li {
+      padding: 5px 9px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      color: #91a8ba;
+      font-size: 0.64rem;
+      line-height: 1.5;
+    }
+
+    .card-foot {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: auto;
+      padding-top: 28px;
+      color: #b6e6df;
+      font-size: 0.76rem;
+      font-weight: 660;
+    }
+    .network .card-foot { color: #c0e8fa; }
+    .card-foot svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 180ms ease;
+    }
+    .doc-card:hover .card-foot svg { transform: translate(3px, -3px); }
+
+    .network-art {
+      width: 100%;
+      height: auto;
+      margin-top: 24px;
+      opacity: 0.9;
+    }
+    .network-art .edge { stroke: rgba(125, 211, 252, 0.26); stroke-width: 1; fill: none; }
+    .network-art .edge-strong { stroke: rgba(109, 230, 214, 0.63); stroke-width: 1.2; fill: none; }
+    .network-art .node { fill: #0c2034; stroke: rgba(125, 211, 252, 0.72); stroke-width: 1.2; }
+    .network-art .node-core { fill: #6de6d6; }
+    .network-art .node-violet { stroke: rgba(196, 167, 255, 0.8); }
+
+    .network-meta {
+      display: flex;
+      gap: 17px;
+      margin-top: 16px;
+      color: #7891a5;
+      font-size: 0.62rem;
+    }
+    .network-meta span { display: inline-flex; align-items: center; gap: 6px; }
+    .network-meta span::before {
+      content: "";
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    .principles {
+      margin-bottom: clamp(84px, 12vw, 138px);
+    }
+
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 34px;
+      border-top: 1px solid var(--line);
+    }
+
+    .principle {
+      position: relative;
+      padding: 27px clamp(18px, 3.5vw, 36px) 8px 0;
+      border-right: 1px solid var(--line);
+    }
+    .principle + .principle { padding-left: clamp(18px, 3.5vw, 36px); }
+    .principle:last-child { border-right: 0; padding-right: 0; }
+
+    .principle-number {
+      color: #5e798c;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.1em;
+    }
+
+    .principle h3 {
+      margin: 20px 0 0;
+      font-size: 1.02rem;
+      font-weight: 630;
+      letter-spacing: -0.01em;
+    }
+
+    .principle p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 0.81rem;
+      line-height: 1.85;
+    }
+
+    .closing {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+      padding: clamp(32px, 5vw, 58px);
+      border: 1px solid rgba(109, 230, 214, 0.18);
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at 85% 15%, rgba(109, 230, 214, 0.12), transparent 22rem),
+        linear-gradient(130deg, rgba(16, 43, 57, 0.88), rgba(10, 25, 40, 0.86));
+      box-shadow: inset 0 1px rgba(255, 255, 255, 0.05);
+    }
+
+    .closing .kicker { margin-bottom: 0; }
+    .closing h2 { max-width: 720px; font-size: clamp(1.8rem, 3.4vw, 3rem); }
+    .closing p {
+      max-width: 620px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .closing-actions { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 3px; }
+
+    .site-footer {
+      margin-top: clamp(80px, 11vw, 130px);
+      border-top: 1px solid var(--line);
+      background: rgba(3, 11, 19, 0.28);
+    }
+
+    .footer-main {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 50px;
+      padding-block: 44px;
+    }
+
+    .footer-brand { display: flex; align-items: flex-start; gap: 12px; }
+    .footer-brand .brand-mark { width: 36px; height: 36px; border-radius: 10px; }
+    .footer-brand .brand-mark svg { width: 22px; height: 22px; }
+    .footer-title { font-size: 0.83rem; font-weight: 650; }
+    .footer-note {
+      max-width: 500px;
+      margin: 12px 0 0;
+      color: #6f8597;
+      font-size: 0.7rem;
+      line-height: 1.8;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 24px;
+      align-content: start;
+      justify-content: flex-end;
+      font-size: 0.71rem;
+    }
+    .footer-links a {
+      color: #8ba2b4;
+      text-decoration: none;
+      transition: color 160ms ease;
+    }
+    .footer-links a:hover { color: var(--teal); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-block: 17px;
+      border-top: 1px solid var(--line);
+      color: #5e7588;
+      font-size: 0.63rem;
+    }
+
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+    }
+    .js .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+      transition: opacity 700ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    @media (max-width: 1020px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        gap: 54px;
+      }
+      .hero-copy { max-width: 760px; }
+      .route-stage { width: min(100%, 560px); }
+      .intro { grid-template-columns: 1fr; align-items: start; gap: 24px; }
+      .intro-copy { max-width: 640px; }
+      .explore-grid { grid-template-columns: 1fr; }
+      .doc-card { min-height: 340px; }
+    }
+
+    @media (max-width: 780px) {
+      .shell { width: min(calc(100% - 34px), var(--max)); }
+      .nav { min-height: 70px; gap: 12px; }
+      .nav-links { display: none; }
+      .brand-name small { font-size: 0.56rem; }
+      .hero { min-height: auto; padding-block: 62px 76px; }
+      h1 { font-size: clamp(2.75rem, 13vw, 4.4rem); }
+      .hero-desc { line-height: 1.8; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .stat { padding: 21px 18px; border-bottom: 1px solid var(--line); }
+      .stat:first-child { padding-left: 18px; }
+      .stat:nth-child(2) { border-right: 0; }
+      .stat:nth-child(3), .stat:nth-child(4) { border-bottom: 0; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 17px; }
+      .principles-grid { grid-template-columns: 1fr; }
+      .principle, .principle + .principle {
+        padding: 25px 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .principle:last-child { border-bottom: 0; padding-bottom: 0; }
+      .principle h3 { margin-top: 12px; }
+      .footer-main { grid-template-columns: 1fr; gap: 28px; }
+      .footer-links { justify-content: flex-start; }
+      .footer-bottom { display: block; }
+      .footer-bottom span { display: block; margin-top: 6px; }
+    }
+
+    @media (max-width: 460px) {
+      .nav-cta span { display: none; }
+      .nav-cta { width: 40px; padding: 0; justify-content: center; }
+      .brand-name strong { font-size: 0.82rem; }
+      .hero-actions .btn { width: 100%; }
+      .console { transform: none; }
+      .console-body { padding: 15px; }
+      .route-stage::before, .route-stage::after { display: none; }
+      .stage-caption { text-align: left; }
+      .console-footer { display: block; line-height: 1.8; }
+      .console-footer span { display: block; margin-top: 4px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .js .reveal { opacity: 1; transform: none; }
+    }
+
+    @media print {
+      body { background: white; color: #111; }
+      body::before, .site-header, .route-stage, .hero-actions, .closing { display: none; }
+      .hero { min-height: auto; display: block; padding: 20px 0; }
+      .doc-card, .principle { break-inside: avoid; }
+      a { text-decoration: underline; }
+    }
+  </style>
 </head>
 <body>
-  <main>
-    <h1>DSH Workflow Model Routing</h1>
-    <p>运行模式与团队路由插件的补充文档</p>
-    <ul>
-      <li><a href="./sss-user-manual-20261118/">用户使用说明书</a></li>
-      <li><a href="./sss-network-20261117/sss-network.html">SSS 协作网络</a></li>
-      <li><a href="https://github.com/SEASTone-0v0/dsh-workflow-model-routing">返回 GitHub 项目</a></li>
-    </ul>
-    <p>SSS 协作网络是基于保存配置快照的交互示意，不执行实际 SSS 业务。</p>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+
+  <header class="site-header">
+    <nav class="nav shell" aria-label="主导航">
+      <a class="brand" href="./" aria-label="DSH Workflow Model Routing 文档首页">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M16 3.4 26.8 9.6v12.8L16 28.6 5.2 22.4V9.6L16 3.4Z" stroke="#6de6d6" stroke-width="1.2"/>
+            <path d="M16 9.4v13.2M10.5 12.5l11 7M21.5 12.5l-11 7" stroke="rgba(125,211,252,.67)" stroke-width="1"/>
+            <circle cx="16" cy="9.3" r="2.2" fill="#6de6d6"/>
+            <circle cx="10.4" cy="19.8" r="1.8" fill="#7dd3fc"/>
+            <circle cx="21.6" cy="19.8" r="1.8" fill="#7dd3fc"/>
+          </svg>
+        </span>
+        <span class="brand-name">
+          <strong>运行模式与团队路由</strong>
+          <small>DSH WORKFLOW · MODEL ROUTING</small>
+        </span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#overview">概览</a>
+        <a href="#explore">文档入口</a>
+        <a href="#principles">设计原则</a>
+      </div>
+
+      <a class="nav-cta" href="https://github.com/SEASTone-0v0/dsh-workflow-model-routing" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 .8a11.3 11.3 0 0 0-3.6 22c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.4-1.3-5.4-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.8 5.4-5.4 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.3 11.3 0 0 0 12 .8Z"/>
+        </svg>
+        <span>GitHub</span>
+      </a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero shell" id="overview">
+      <div class="hero-copy">
+        <div class="eyebrow reveal">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          v2.6.4 · 文档与协作网络
+        </div>
+
+        <h1 class="reveal">
+          <span class="line">运行模式</span>
+          <span class="line accent">与团队路由</span>
+        </h1>
+
+        <p class="hero-en reveal">Execution modes · Role tiers · Explicit routing</p>
+
+        <p class="hero-desc reveal">
+          为 DeepSeek Harness 统一管理<strong>运行模式、角色模型分层</strong>与
+          <strong>primary / backup / upgrade</strong> 显式派工路线。
+          把默认选择、故障切换和复杂任务升级留在可理解、可检查的配置里。
+        </p>
+
+        <div class="hero-actions reveal">
+          <a class="btn btn-primary" href="./sss-user-manual-20261118/">
+            打开使用说明书
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M5 12h13M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+          <a class="btn btn-secondary" href="./sss-network-20261117/sss-network.html">
+            探索 SSS 协作网络
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <circle cx="6" cy="12" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="18" cy="18" r="2.2"/>
+              <path d="m8 11 8-4M8 13l8 4"/>
+            </svg>
+          </a>
+        </div>
+
+        <ul class="hero-facts reveal" aria-label="版本要点">
+          <li>四种运行模式</li>
+          <li>模型中立</li>
+          <li>无自动故障转移</li>
+          <li>MIT License</li>
+        </ul>
+      </div>
+
+      <div class="route-stage reveal" aria-label="primary、backup、upgrade 三级派工概念示意">
+        <div class="console">
+          <div class="console-bar">
+            <span class="window-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+            <span class="console-title">ROUTING PREVIEW</span>
+            <span class="live-pill">CONFIGURED</span>
+          </div>
+
+          <div class="console-body">
+            <div class="mode-strip" aria-label="四种运行模式">
+              <span>经济</span>
+              <span class="active">普通</span>
+              <span>性能</span>
+              <span>穷鬼</span>
+            </div>
+
+            <div class="route-root">
+              <span class="node-glyph" aria-hidden="true">L</span>
+              <span class="route-root-copy">
+                <small>Lead · 主会话</small>
+                <strong>默认路线解析</strong>
+              </span>
+              <span class="root-badge">ON</span>
+            </div>
+
+            <div class="route-stem" aria-hidden="true"></div>
+
+            <div class="route-list">
+              <div class="route-card primary">
+                <span class="node-glyph" aria-hidden="true">P</span>
+                <span class="route-card-copy">
+                  <strong>Primary <em>主用</em></strong>
+                  <small>默认首次派工</small>
+                </span>
+                <span class="route-tag">DEFAULT</span>
+              </div>
+              <div class="route-card backup">
+                <span class="node-glyph" aria-hidden="true">B</span>
+                <span class="route-card-copy">
+                  <strong>Backup <em>备用</em></strong>
+                  <small>故障后显式改派</small>
+                </span>
+                <span class="route-tag">MANUAL</span>
+              </div>
+              <div class="route-card upgrade">
+                <span class="node-glyph" aria-hidden="true">U</span>
+                <span class="route-card-copy">
+                  <strong>Upgrade <em>升级</em></strong>
+                  <small>复杂阻塞时显式提档</small>
+                </span>
+                <span class="route-tag">EXPLICIT</span>
+              </div>
+            </div>
+
+            <div class="console-footer">
+              <span><strong>NO AUTO-FAILOVER</strong></span>
+              <span>示意界面 · 以实际配置为准</span>
+            </div>
+          </div>
+        </div>
+        <p class="stage-caption">仅展示路由概念，不代表真实模型连接状态。</p>
+      </div>
+    </section>
+
+    <div class="shell">
+      <div class="stats reveal" aria-label="项目数据">
+        <div class="stat">
+          <div class="stat-value"><span>04</span><small>MODES</small></div>
+          <p class="stat-label">经济 / 普通 / 性能 / 穷鬼</p>
+        </div>
+        <div class="stat">
+          <div class="stat-value"><span>03</span><small>TIERS</small></div>
+          <p class="stat-label">Primary / Backup / Upgrade</p>
+        </div>
+        <div class="stat">
+          <div class="stat-value"><span>11</span><small>CHAPTERS</small></div>
+          <p class="stat-label">分章节中文使用说明书</p>
+        </div>
+        <div class="stat">
+          <div class="stat-value"><span>35</span><small>NODES</small></div>
+          <p class="stat-label">SSS 交互网络节点</p>
+        </div>
+      </div>
+
+      <section class="intro reveal" aria-labelledby="intro-title">
+        <div>
+          <p class="kicker">A routing layer, not an autopilot</p>
+          <h2 id="intro-title">它不替你自动换模型。<br><span class="muted">它把选择、边界和证据放到同一个界面。</span></h2>
+        </div>
+        <p class="intro-copy">
+          从 Lead 默认路线，到角色分层和团队覆盖，每一层都保留明确的配置边界。
+          <strong>备用和升级是用户显式决定</strong>，不是页面在后台擅自切换。
+        </p>
+      </section>
+
+      <section class="explore" id="explore" aria-labelledby="explore-title">
+        <div class="section-head">
+          <div>
+            <p class="kicker">Explore the system</p>
+            <h2 id="explore-title">从说明到网络，<br>理解整套协作方式。</h2>
+          </div>
+          <p>先读操作路径，再用交互网络查看角色、档位与决策链路之间的关系。</p>
+        </div>
+
+        <div class="explore-grid">
+          <a class="doc-card manual" href="./sss-user-manual-20261118/">
+            <div class="card-topline">
+              <span class="icon-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v17H6.5A2.5 2.5 0 0 0 4 22V5.5ZM20 5.5A2.5 2.5 0 0 0 17.5 3H13v17h4.5A2.5 2.5 0 0 1 20 22V5.5Z"/>
+                </svg>
+              </span>
+              <span class="card-index">01 / MANUAL</span>
+            </div>
+
+            <h3>用户使用说明书</h3>
+            <p class="card-desc">
+              从第一次打开配置入口，到模式保存、角色分层、AI 草稿、排障与任务生命周期。
+              共 11 章，按实际操作顺序组织。
+            </p>
+
+            <ul class="chapter-list" aria-label="手册章节">
+              <li>快速开始</li>
+              <li>主会话与派工</li>
+              <li>模型与角色</li>
+              <li>模型配置</li>
+              <li>保存与启用</li>
+              <li>故障排查</li>
+            </ul>
+
+            <span class="card-foot">
+              阅读完整说明书
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M7 17 17 7M8 7h9v9"/>
+              </svg>
+            </span>
+          </a>
+
+          <a class="doc-card network" href="./sss-network-20261117/sss-network.html">
+            <div class="card-topline">
+              <span class="icon-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                  <circle cx="12" cy="5" r="2.3"/><circle cx="5" cy="18" r="2.3"/><circle cx="19" cy="18" r="2.3"/>
+                  <path d="m10.7 7-4.5 9M13.3 7l4.5 9M7.3 18h9.4"/>
+                </svg>
+              </span>
+              <span class="card-index">02 / NETWORK</span>
+            </div>
+
+            <h3>SSS 协作网络</h3>
+            <p class="card-desc">
+              以保存的配置快照呈现 35 个节点与 90 条关系，支持阶段、职责和任务视图，
+              并展示 primary / backup / upgrade / compare 的决策链路。
+            </p>
+
+            <svg class="network-art" viewBox="0 0 480 150" role="img" aria-label="协作网络连线示意">
+              <path class="edge" d="M55 102 128 48 207 94 283 37 354 88 424 55"/>
+              <path class="edge" d="M55 102 207 94 354 88"/>
+              <path class="edge-strong" d="M128 48 283 37 424 55"/>
+              <path class="edge" d="M128 48 207 94 354 88"/>
+              <path class="edge" d="M55 102 128 48M207 94 283 37M283 37 354 88M354 88 424 55"/>
+              <circle class="node" cx="55" cy="102" r="9"/>
+              <circle class="node" cx="128" cy="48" r="11"/>
+              <circle class="node node-violet" cx="207" cy="94" r="8"/>
+              <circle class="node" cx="283" cy="37" r="13"/>
+              <circle class="node" cx="354" cy="88" r="9"/>
+              <circle class="node node-violet" cx="424" cy="55" r="7"/>
+              <circle class="node-core" cx="283" cy="37" r="3.5"/>
+              <circle class="node-core" cx="128" cy="48" r="2.8"/>
+              <circle class="node-core" cx="55" cy="102" r="2.5"/>
+            </svg>
+
+            <div class="network-meta" aria-label="网络规模">
+              <span>35 节点</span>
+              <span>90 条关系</span>
+              <span>四模式视图</span>
+            </div>
+
+            <span class="card-foot">
+              打开交互式网络
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <path d="M7 17 17 7M8 7h9v9"/>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <section class="principles" id="principles" aria-labelledby="principles-title">
+        <p class="kicker">Design principles</p>
+        <h2 id="principles-title">把控制权留在人手里。</h2>
+
+        <div class="principles-grid">
+          <article class="principle reveal">
+            <span class="principle-number">01 / EXPLICIT</span>
+            <h3>显式，而不是自动</h3>
+            <p>主用是默认入口，备用用于有证据的故障，升级用于复杂阻塞或复核打回。切换始终是可见决定。</p>
+          </article>
+          <article class="principle reveal">
+            <span class="principle-number">02 / NEUTRAL</span>
+            <h3>中立，而不是绑定</h3>
+            <p>模式描述成本、质量与国内模型偏好，不按供应商硬编码禁用路线，也不限制用户选择。</p>
+          </article>
+          <article class="principle reveal">
+            <span class="principle-number">03 / VERIFIABLE</span>
+            <h3>证据，而不是假设</h3>
+            <p>目录可见不代表端点健康或套餐可用；本地测试也不等同于真实 GUI 与真实模型调用。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="closing reveal" aria-labelledby="closing-title">
+        <p class="kicker">Start here</p>
+        <h2 id="closing-title">先理解路线，再决定让谁来工作。</h2>
+        <p>
+          如果你是第一次使用，建议从使用说明书的快速开始路径进入；
+          如果你已经熟悉四种模式，可以直接打开 SSS 网络查看角色与档位关系。
+        </p>
+        <div class="closing-actions">
+          <a class="btn btn-primary" href="./sss-user-manual-20261118/">
+            从说明书开始
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M5 12h13M13 6l6 6-6 6"/>
+            </svg>
+          </a>
+          <a class="btn btn-secondary" href="https://github.com/SEASTone-0v0/dsh-workflow-model-routing/releases" target="_blank" rel="noopener noreferrer">
+            查看版本发布
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M7 17 17 7M8 7h9v9"/>
+            </svg>
+          </a>
+        </div>
+      </section>
+    </div>
   </main>
+
+  <footer class="site-footer">
+    <div class="shell">
+      <div class="footer-main">
+        <div>
+          <div class="footer-brand">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none">
+                <path d="M16 3.4 26.8 9.6v12.8L16 28.6 5.2 22.4V9.6L16 3.4Z" stroke="#6de6d6" stroke-width="1.2"/>
+                <path d="M16 9.4v13.2M10.5 12.5l11 7M21.5 12.5l-11 7" stroke="rgba(125,211,252,.67)" stroke-width="1"/>
+                <circle cx="16" cy="9.3" r="2.2" fill="#6de6d6"/>
+                <circle cx="10.4" cy="19.8" r="1.8" fill="#7dd3fc"/>
+                <circle cx="21.6" cy="19.8" r="1.8" fill="#7dd3fc"/>
+              </svg>
+            </span>
+            <div>
+              <div class="footer-title">DSH Workflow Model Routing</div>
+              <p class="footer-note">
+                SSS 协作网络基于保存的配置快照构建，仅用于交互说明与配置审查，不执行实际 SSS 业务。
+                文档中的验证结论仅代表对应测试范围，不代表真实模型端点或 GUI 已通过验收。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-links" aria-label="相关链接">
+          <a href="https://github.com/SEASTone-0v0/dsh-workflow-model-routing" target="_blank" rel="noopener noreferrer">GitHub 项目</a>
+          <a href="https://github.com/SEASTone-0v0/dsh-workflow-model-routing/tree/main/docs/user-manual" target="_blank" rel="noopener noreferrer">Markdown 手册</a>
+          <a href="https://github.com/SEASTone-0v0/dsh-workflow-model-routing/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
+          <a href="https://github.com/SEASTone-0v0/dsh-workflow-model-routing/issues" target="_blank" rel="noopener noreferrer">问题反馈</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 DSH Workflow Model Routing contributors</span>
+        <span>运行模式与团队路由 · v2.6.4</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const items = document.querySelectorAll('.reveal');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        items.forEach((item) => item.classList.add('is-visible'));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -32px' });
+
+      items.forEach((item, index) => {
+        item.style.transitionDelay = `${Math.min(index * 45, 220)}ms`;
+        observer.observe(item);
+      });
+    })();
+  </script>
 </body>
 </html>
