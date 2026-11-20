@@ -368,6 +368,13 @@ const ctx = {
     return () => listeners.delete(event);
   },
   inject: (names, callback) => {
+    if (Array.isArray(names) && names.length === 1 && names[0] !== "webServer") {
+      callback({
+        [names[0]]: services[names[0]],
+        get: (name) => services[name] ?? null,
+      });
+      return;
+    }
     assert.deepEqual(names, ["webServer"]);
     callback({
       webServer: {

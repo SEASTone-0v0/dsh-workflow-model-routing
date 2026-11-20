@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "description": "A DeepSeek Harness plugin for execution modes, role tiers, and explicit primary/backup/upgrade model routing in multi-agent workflows.",
-  "main": "./runtime-7ce3d337381a/index.js",
+  "main": "./runtime-ccd937589376/index.js",
   "exports": {
-    ".": "./runtime-7ce3d337381a/index.js",
-    "./client": "./runtime-7ce3d337381a/client.js",
+    ".": "./runtime-ccd937589376/index.js",
+    "./client": "./runtime-ccd937589376/client.js",
     "./package.json": "./package.json"
   },
   "files": [
